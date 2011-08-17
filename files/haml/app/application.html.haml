@@ -1,0 +1,21 @@
+%html
+  %head
+    %title Set This Title 
+    = stylesheet_link_tag 'application', media: 'screen, projection'
+    = stylesheet_link_tag 'print.', media: 'print'
+
+    = csrf_meta_tag
+
+    %meta{name: "session-key", content: Rails.application.config.session_options[:key] }
+    %meta{name: "session-data", content: u(cookies[Rails.application.config.session_options[:key]])}
+
+  %body
+    #container
+      #flash-messages
+        -if notice
+          .success= notice
+        -if alert
+          .error= alert
+      = yield
+
+    = javascript_include_tag 'application'
