@@ -72,6 +72,10 @@ CONFIG
 
 get "https://raw.github.com/kylerobson/rails-application-templates/master/files/Procfile"
 
+if using_haml
+    get "https://raw.github.com/kylerobson/rails-application-templates/master/files/haml/app/application.html.haml", "app/views/layouts/application.html.haml"
+end
+
 # todo: add in a css reset
 
 # clean up garbage
