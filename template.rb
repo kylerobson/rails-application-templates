@@ -27,7 +27,8 @@ gem 'foreman'
 gem 'thin'
 
 if prompt_yes? "use haml?"
-    gem 'haml-rails'
+    gem 'haml', '>= 3.1.2'
+    gem 'haml-rails', '>=0.3.4', :group => :development
     using_haml = true
 end
 
@@ -56,6 +57,7 @@ elsif prompt_yes? "use mongodb?"
     gem 'mongoid', '>= 2.1.5'
     after_bundler do
         generate 'mongoid:config'
+        say_custom "NOTE!!!", "last i checked, this will put some bad values for production if using heroku. change config/mongoid.yml under production to: uri: <%= ENV['MONGOHQ_URL'] %>"
         remove_file 'config/database.yml'
     end
 elsif prompt_yes? "use postgresql?"
@@ -71,6 +73,7 @@ CONFIG
 # add some files
 
 get "https://raw.github.com/kylerobson/rails-application-templates/master/files/Procfile"
+generate(:controller, "home index")
 
 if using_haml
     get "https://raw.github.com/kylerobson/rails-application-templates/master/files/app/views/layouts/application.html.haml", "app/views/layouts/application.html.haml"
