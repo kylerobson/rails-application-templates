@@ -25,6 +25,7 @@ end
 
 gem 'foreman'
 gem 'thin'
+gem 'pony', :git => 'git://github.com/benprew/pony.git'
 
 if prompt_yes? "use haml?"
     gem 'haml', '>= 3.1.2'
@@ -51,7 +52,7 @@ if prompt_yes? "use jquery ui?"
 end
 
 if prompt_yes? "use mongodb and postgresql together?"
-    say_custom "todo", "sorry, i haven't implemented that yet. you'll have to figure that one out custom."
+    say_custom "todo", "sorry, i haven't implemented that yet. you'll have to figure that one out manually."
 elsif prompt_yes? "use mongodb?"
     gem 'bson_ext', '>= 1.3.1'
     gem 'mongoid', '>= 2.1.5'
@@ -81,6 +82,12 @@ end
 
 # todo: add in a css reset
 
+# create staging environment
+
+inside('config/environments') do
+    run 'cp production.rb staging.rb'
+end
+
 # clean up garbage
 run "rm app/assets/images/rails.png"
 run "rm public/index.html"
@@ -89,7 +96,7 @@ run "rm .gitignore"
 
 # finish up
 
-run 'bundle install --without production'
+run 'bundle install' # --without production'
 say_custom "note", "Running 'after bundler' callbacks."
 require 'bundler/setup'
 @after_blocks.each{|b| 
