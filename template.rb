@@ -80,6 +80,10 @@ if using_haml
     get "https://raw.github.com/kylerobson/rails-application-templates/master/files/app/views/layouts/application.html.haml", "app/views/layouts/application.html.haml"
 end
 
+# setup mail
+
+get "https://raw.github.com/kylerobson/rails-application-templates/master/files/config/setup_mail.rb", "config/setup_mail.rb"
+
 # todo: add in a css reset
 
 # create staging environment
